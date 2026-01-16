@@ -1,15 +1,18 @@
-h1 Registrations
+extends layout
 
-if registrations.length
-  table(border="1")
-    thead
-      tr
-        th Name
-        th Email
-    tbody
-      each reg in registrations
+block content
+  h2.text-center.mb-4 Registrations
+
+  if registrations.length
+    table.table.table-striped.table-bordered
+      thead.thead-dark
         tr
-          td #{reg.name}
-          td #{reg.email}
-else
-  p No registrations yet
+          th Name
+          th Email
+      tbody
+        each reg in registrations
+          tr
+            td #{reg.name}
+            td #{reg.email}
+  else
+    p.text-muted.text-center No registrations yet

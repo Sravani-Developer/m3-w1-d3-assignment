@@ -1,28 +1,31 @@
 extends layout
 
 block content
-  - data = data || {}
+  h2.text-center.mb-4 Registration Form
 
   if errors
-    ul
-      for error in errors
-        li= error.msg
+    .alert.alert-danger
+      ul.mb-0
+        each error in errors
+          li #{error.msg}
 
-  form(action="." method="POST")
-    label(for="name") Name:
-    input(
-      type="text"
-      id="name"
-      name="name"
-      value=data.name
-    )
+  form(method="POST", action="/")
+    .form-group
+      label(for="name") Name
+      input.form-control(
+        type="text",
+        id="name",
+        name="name",
+        value=(data && data.name ? data.name : '')
+      )
 
-    label(for="email") Email:
-    input(
-      type="email"
-      id="email"
-      name="email"
-      value=data.email
-    )
+    .form-group
+      label(for="email") Email
+      input.form-control(
+        type="email",
+        id="email",
+        name="email",
+        value=(data && data.email ? data.email : '')
+      )
 
-    input(type="submit" value="Submit")
+    button.btn.btn-primary.btn-block(type="submit") Submit

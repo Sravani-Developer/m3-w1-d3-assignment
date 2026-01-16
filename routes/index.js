@@ -1,16 +1,22 @@
 const express = require('express');
 const router = express.Router();
 const { check, validationResult } = require('express-validator');
+const path = require('path');
+const auth = require('http-auth');
 
 const mongoose = require('mongoose');
 require('../models/Registration');         
 const Registration = mongoose.model('Registration');
 
+const basic = auth.basic({
+  file: path.join(__dirname, '../users.htpasswd'),
+});
+
 router.get('/', function (req, res) {
   res.render('form', { title: 'Registration form' });
 });
 
-router.get('/registrations', function (req, res) {
+router.get('/registrations', basic.check((req, res) => true), function (req, res) {
   Registration.find()
     .then((registrations) => {
       res.render('index', {
@@ -36,8 +42,6 @@ router.post(
       .withMessage('Please enter an email'),
   ],
   function (req, res) {
-    console.log("BODY:", req.body);
-    
     const errors = validationResult(req);
 
     if (errors.isEmpty()) {

@@ -7,9 +7,10 @@ const app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
-const bodyParser = require('body-parser');
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.static('public'));
 
-app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/', routes);
 
 module.exports = app;
