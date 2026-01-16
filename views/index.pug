@@ -1,0 +1,15 @@
+h1 Registrations
+
+if registrations.length
+  table(border="1")
+    thead
+      tr
+        th Name
+        th Email
+    tbody
+      each reg in registrations
+        tr
+          td #{reg.name}
+          td #{reg.email}
+else
+  p No registrations yet
